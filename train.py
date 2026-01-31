@@ -12,7 +12,7 @@ from .fake_logger import FakeLogger
 
 from .fake_checkpointer import FakeCheckpointer
 
-from ..config import *
+from pathlib import Path
 import jax.numpy as jnp
 
 
@@ -24,6 +24,7 @@ def train(
     num_train_samples: int,
     num_val_samples: int,
     num_epochs: int,
+    batch_size: int,
     rngs: nnx.Rngs = nnx.Rngs(0),
     checkpoint_dir: str | Path | None = None,
     tensorboard_dir: str | Path | None = None,
@@ -292,8 +293,8 @@ def train(
         return loss_fn(param_leaves, x, y, rngs_leaves, False)[0]
 
     # Calculate number of batches per epoch
-    train_steps = num_train_samples // BATCH_SIZE
-    val_steps = num_val_samples // BATCH_SIZE
+    train_steps = num_train_samples // batch_size
+    val_steps = num_val_samples // batch_size
 
     # The actual training loop
     for epoch in range(num_epochs):
