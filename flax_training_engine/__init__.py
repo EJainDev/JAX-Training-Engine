@@ -1,0 +1,5 @@
+from .train import train
+from .version import MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION, TWEAK_VERSION
+
+__all__ = ["train", "MAJOR_VERSION", "MINOR_VERSION", "PATCH_VERSION", "TWEAK_VERSION"]
+__version__ = f"{MAJOR_VERSION}.{MINOR_VERSION}.{PATCH_VERSION}.{TWEAK_VERSION}"

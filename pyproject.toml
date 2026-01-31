@@ -1,0 +1,35 @@
+[project]
+name = "flax-ml-training-engine"
+version = "0.1.0"
+description = "This provides a highly optimized training engine for Flax based models using tools like Jax, Optax, Orbax, etc. with key optimizations for performance."
+authors = [
+    {name = "EJainDev", email = "ekansh.jain2011@gmail.com"}
+]
+license = {text = """Copyright 2026 Ekansh Jain
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flax==0.12.3",
+    "grain==0.2.15",
+    "jax==0.9.0",
+    "optax==0.2.6",
+    "orbax-checkpoint==0.11.32",
+    "tqdm==4.67.2",
+    "tensorflow-cpu==2.20.0",
+    "tensorboard==2.20.0"
+]
+
+[tool.poetry]
+packages = [{include = "flax_training_engine"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

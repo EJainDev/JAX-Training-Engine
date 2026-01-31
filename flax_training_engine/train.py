@@ -114,7 +114,11 @@ def train(
     opt_state_leaves, opt_state_graph_def = jax.tree.flatten(opt_state)
 
     # Restore checkpoint if it exists
-    if restore_from_checkpoint and os.listdir(checkpoint_dir) != []:
+    if (
+        restore_from_checkpoint
+        and os.path.exists(str(checkpoint_dir))
+        and os.listdir(str(checkpoint_dir)) != []
+    ):
         restored = mngr.restore(
             step=None,
             args=ocp.args.Composite(
@@ -316,7 +320,7 @@ def train(
 
             # Train
             param_leaves, opt_state_leaves, rngs_leaves, loss = train_step(
-                param_leaves, opt_state_leaves, rngs_leaves, x, y
+                param_leaves, opt_state_leaves, x, y, rngs_leaves
             )
 
             # Accumulate loss
@@ -339,7 +343,7 @@ def train(
             y: jax.Array = jax.device_put(data["targets"])  # Move data to accelerator
 
             # Validate and accumulate loss
-            val_loss += validation_step(param_leaves, x, y).item()
+            val_loss += validation_step(param_leaves, x, y, rngs_leaves).item()
 
         val_loss /= val_steps  # Get average validation loss
 
@@ -356,7 +360,9 @@ def train(
         x: jax.Array = jax.device_put(data["features"])  # Move data to accelerator
         y: jax.Array = jax.device_put(data["targets"])  # Move data to accelerator
 
-        preds, grads = jax.value_and_grad(loss_fn)(param_leaves, x, y)
+        (preds, _), grads = jax.value_and_grad(loss_fn, has_aux=True)(
+            param_leaves, x, y, rngs_leaves, False
+        )
 
         # Tensorboard logging
         for path, grad in jax.tree.flatten_with_path(grads)[0]:

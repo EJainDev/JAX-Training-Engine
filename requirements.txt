@@ -1,0 +1,8 @@
+flax==0.12.3
+grain==0.2.15
+jax==0.9.0
+optax==0.2.6
+orbax-checkpoint==0.11.32
+tqdm==4.67.2
+tensorflow-cpu==2.20.0
+tensorboard==2.20.0
