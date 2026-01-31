@@ -56,6 +56,8 @@ def train(
     :type num_val_samples: int
     :param num_epochs: The number of epochs to train the model for
     :type num_epochs: int
+    :param batch_size: The batch size to use during training
+    :type batch_size: int
     :param rngs: The random number generators for all random operations, passed to the model during training as a kwarg 'rngs' and passes a 'train' boolean representing whether or not training is occuring
     :type rngs: nnx.Rngs
     :param checkpoint_dir: Directory to save and restore checkpoints, if none, disables checkpointing (not recommended)
